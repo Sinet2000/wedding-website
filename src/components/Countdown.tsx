@@ -33,7 +33,7 @@ const Title = styled(motion.h2)`
   font-family: ${(props) => props.theme.fonts.calligraphyThree};
   font-size: 3.5rem;
   color: rgba(255, 255, 255, 0.9);
-  margin: 1rem 0 2rem;
+  margin: 2rem 0 3rem;
   text-align: center;
   position: relative;
   font-weight: 500;
@@ -60,7 +60,7 @@ const Title = styled(motion.h2)`
 
   @media (max-width: 768px) {
     font-size: 2rem;
-    margin: 0 0 2rem;
+    margin: 1.5rem 0 2rem;
 
     &::before,
     &::after {
