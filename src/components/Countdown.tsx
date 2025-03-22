@@ -33,7 +33,7 @@ const Title = styled(motion.h2)`
   font-family: ${(props) => props.theme.fonts.calligraphyThree};
   font-size: 3.5rem;
   color: rgba(255, 255, 255, 0.9);
-  margin: 0 0 3rem;
+  margin: 1rem 0 2rem;
   text-align: center;
   position: relative;
   font-weight: 500;
