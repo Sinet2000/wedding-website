@@ -206,14 +206,7 @@ export const Calendar = () => {
 
     if (platform === "android") {
       // Google Calendar link
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-        event.title
-      )}&dates=${event.startDate.replace(/[-:]/g, "")}/${event.endDate.replace(
-        /[-:]/g,
-        ""
-      )}&details=${encodeURIComponent(
-        event.description
-      )}&location=${encodeURIComponent(event.location)}`;
+      const url = `https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NGgxNnZqcWRzaThoZm8zZDlrNDZkdTl0Y2MgZ2lpbmdlcjExMzUyQG0&tmsrc=giinger11352%40gmail.com`;
       window.open(url, "_blank");
     } else {
       // Apple Calendar link
