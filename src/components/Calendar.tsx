@@ -204,10 +204,23 @@ export const Calendar = () => {
       location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006, Latvia",
     };
 
-    if (platform === "android") {
-      // Google Calendar link
-      const url = `https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NGgxNnZqcWRzaThoZm8zZDlrNDZkdTl0Y2MgZ2lpbmdlcjExMzUyQG0&tmsrc=giinger11352%40gmail.com`;
-      window.open(url, "_blank");
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isAndroid = userAgent.includes("android");
+    const isIOS = /iphone|ipad|ipod/.test(userAgent);
+
+    if (isAndroid) {
+      // Google Calendar Link
+      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+        event.title
+      )}&details=${encodeURIComponent(
+        event.description
+      )}&location=${encodeURIComponent(
+        event.location
+      )}&dates=${event.startDate.replace(/[-:]/g, "")}/${event.endDate.replace(
+        /[-:]/g,
+        ""
+      )}`;
+      window.open(googleCalendarUrl, "_blank");
     } else {
       const event = {
         title: "Свадьба: Дарья & Никита",
