@@ -169,13 +169,6 @@ export const Countdown = () => {
   return (
     <CountdownSection>
       <BackgroundImage />
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        До нашей свадьбы осталось
-      </Title>
       <CountdownWrapper
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -197,6 +190,13 @@ export const Countdown = () => {
           </TimeUnit>
         ))}
       </CountdownWrapper>
+      <Title
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        До нашей свадьбы осталось
+      </Title>
     </CountdownSection>
   );
 };

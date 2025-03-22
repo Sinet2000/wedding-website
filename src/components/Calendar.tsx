@@ -145,7 +145,7 @@ const Message = styled(motion.p)`
   line-height: 1.6;
 `;
 
-const Date = styled(motion.div)`
+const DateWrapper = styled(motion.div)`
   font-family: ${(props) => props.theme.fonts.secondary};
   font-size: 1.5rem;
   font-weight: 700;
@@ -197,11 +197,11 @@ export const Calendar = () => {
 
   const handleAddToCalendar = (platform: "android" | "ios") => {
     const event = {
-      title: "Свадьба Никита & Дарья",
-      description: "Торжественная церемония бракосочетания",
+      title: "💍 Свадьба: Дарья & Никита 💕",
+      description: "Будем рады разделить этот особенный день с вами! 🎊✨",
       startDate: "2025-05-24T13:30:00",
-      endDate: "2025-05-25T02:00:00",
-      location: "Rīga",
+      endDate: "2025-05-25T02:30:00",
+      location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006, Latvia",
     };
 
     if (platform === "android") {
@@ -209,18 +209,49 @@ export const Calendar = () => {
       const url = `https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NGgxNnZqcWRzaThoZm8zZDlrNDZkdTl0Y2MgZ2lpbmdlcjExMzUyQG0&tmsrc=giinger11352%40gmail.com`;
       window.open(url, "_blank");
     } else {
-      // Apple Calendar link
-      const url = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-DTSTART:${event.startDate.replace(/[-:]/g, "")}
-DTEND:${event.endDate.replace(/[-:]/g, "")}
-SUMMARY:${event.title}
-DESCRIPTION:${event.description}
-LOCATION:${event.location}
-END:VEVENT
-END:VCALENDAR`;
-      window.open(url);
+      const event = {
+        title: "Свадьба: Дарья & Никита",
+        description:
+          "Приглашаем вас на нашу свадьбу! 💍✨ Будем рады видеть вас в этот особенный день.",
+        location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006",
+        startDate: new Date("2025-05-24T10:30:00Z"), // UTC время
+        endDate: new Date("2025-05-24T12:30:00Z"), // UTC время
+      };
+
+      const formatDate = (date: Date) => {
+        return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      };
+
+      // Создание корректного .ics файла для iOS
+      const timestamp = formatDate(new Date()); // Текущая временная метка
+      const icsContent = `BEGIN:VCALENDAR
+  VERSION:2.0
+  PRODID:-//Свадьба Дарьи и Никиты//EN
+  CALSCALE:GREGORIAN
+  BEGIN:VEVENT
+  UID:${timestamp}@daria-nikita-wedding.com
+  DTSTAMP:${timestamp}
+  DTSTART:${formatDate(event.startDate)}
+  DTEND:${formatDate(event.endDate)}
+  SUMMARY:${event.title}
+  DESCRIPTION:${event.description}
+  LOCATION:${event.location}
+  STATUS:CONFIRMED
+  SEQUENCE:0
+  TRANSP:OPAQUE
+  END:VEVENT
+  END:VCALENDAR`;
+
+      // Создание Blob-файла и загрузка
+      const blob = new Blob([icsContent], {
+        type: "text/calendar;charset=utf-8",
+      });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", "svadba-daria-nikita.ics");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -292,13 +323,13 @@ END:VCALENDAR`;
           день нашей свадьбы!
         </Message>
 
-        <Date
+        <DateWrapper
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
           24 / 05 / 25
-        </Date>
+        </DateWrapper>
 
         <ButtonContainer>
           <CalendarButton onClick={() => handleAddToCalendar("android")}>

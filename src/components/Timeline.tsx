@@ -392,7 +392,7 @@ export const Timeline = () => {
     },
     {
       time: "14:00",
-      description: "Выездная регистрация",
+      description: "Регистрация в ЗАГСе",
       icon: <RingsIcon />,
     },
     {
