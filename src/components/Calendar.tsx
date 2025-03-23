@@ -219,20 +219,15 @@ export const Calendar = () => {
       window.open(googleCalendarUrl, "_blank");
     } else {
       const icsUrl = `${window.location.origin}/svadba-daria-nikita.ics`;
-      window.location.href = icsUrl;
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = icsUrl;
+      document.body.appendChild(iframe);
+
+      // Remove iframe after 5 seconds
       setTimeout(() => {
-        window.location.href = `webcal://${icsUrl.replace(/^https?:\/\//, "")}`;
-      }, 1000);
-
-      // const iframe = document.createElement("iframe");
-      // iframe.style.display = "none";
-      // iframe.src = icsUrl;
-      // document.body.appendChild(iframe);
-
-      // // Remove iframe after 5 seconds
-      // setTimeout(() => {
-      //   document.body.removeChild(iframe);
-      // }, 5000);
+        document.body.removeChild(iframe);
+      }, 5000);
     }
   };
 
