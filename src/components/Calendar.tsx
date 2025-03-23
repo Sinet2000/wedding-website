@@ -204,11 +204,7 @@ export const Calendar = () => {
       location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006, Latvia",
     };
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = userAgent.includes("android");
-    const isIOS = /iphone|ipad|ipod/.test(userAgent);
-
-    if (isAndroid) {
+    if (platform == "android") {
       // Google Calendar Link
       const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
         event.title
@@ -237,34 +233,30 @@ export const Calendar = () => {
 
       // Создание корректного .ics файла для iOS
       const timestamp = formatDate(new Date()); // Текущая временная метка
-      const icsContent = `BEGIN:VCALENDAR
-  VERSION:2.0
-  PRODID:-//Свадьба Дарьи и Никиты//EN
-  CALSCALE:GREGORIAN
-  BEGIN:VEVENT
-  UID:${timestamp}@daria-nikita-wedding.com
-  DTSTAMP:${timestamp}
-  DTSTART:${formatDate(event.startDate)}
-  DTEND:${formatDate(event.endDate)}
-  SUMMARY:${event.title}
-  DESCRIPTION:${event.description}
-  LOCATION:${event.location}
-  STATUS:CONFIRMED
-  SEQUENCE:0
-  TRANSP:OPAQUE
-  END:VEVENT
-  END:VCALENDAR`;
+      const icsContent = `
+      BEGIN:VCALENDAR
+      VERSION:2.0
+      PRODID:-//Свадьба Дарьи и Никиты//EN
+      BEGIN:VEVENT
+      UID:${timestamp}@daria-nikita-wedding.com
+      DTSTAMP:${timestamp}
+      DTSTART:${formatDate(event.startDate)}
+      DTEND:${formatDate(event.endDate)}
+      SUMMARY:${event.title}
+      DESCRIPTION:${event.description}
+      LOCATION:${event.location}
+      END:VEVENT
+      END:VCALENDAR`;
 
-      // Создание Blob-файла и загрузка
-      const blob = new Blob([icsContent], {
-        type: "text/calendar;charset=utf-8",
-      });
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute("download", "svadba-daria-nikita.ics");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "event.ics";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   };
 
