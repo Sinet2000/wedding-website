@@ -249,20 +249,10 @@ export const Calendar = () => {
       // END:VCALENDAR`;
 
       const icsUrl = `${window.location.origin}/svadba-daria-nikita.ics`;
-
-      // Check if it's Safari or iOS
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isSafari = /^((?!chrome|android).)*safari/i.test(
-        navigator.userAgent
-      );
-
-      if (isIOS || isSafari) {
-        // Force opening in Calendar app
+      window.location.href = icsUrl;
+      setTimeout(() => {
         window.location.href = `webcal://${icsUrl.replace(/^https?:\/\//, "")}`;
-      } else {
-        // Normal download
-        window.open(icsUrl, "_blank");
-      }
+      }, 1000);
     }
   };
 
