@@ -218,46 +218,21 @@ export const Calendar = () => {
       )}`;
       window.open(googleCalendarUrl, "_blank");
     } else {
-      // const event = {
-      //   title: "Свадьба: Дарья & Никита",
-      //   description:
-      //     "Приглашаем вас на нашу свадьбу! 💍✨ Будем рады видеть вас в этот особенный день.",
-      //   location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006",
-      //   startDate: new Date("2025-05-24T10:30:00Z"), // UTC время
-      //   endDate: new Date("2025-05-24T12:30:00Z"), // UTC время
-      // };
-
-      // const formatDate = (date: Date) => {
-      //   return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-      // };
-
-      // // Создание корректного .ics файла для iOS
-      // const timestamp = formatDate(new Date()); // Текущая временная метка
-      // const icsContent = `
-      // BEGIN:VCALENDAR
-      // VERSION:2.0
-      // PRODID:-//Свадьба Дарьи и Никиты//EN
-      // BEGIN:VEVENT
-      // UID:${timestamp}@daria-nikita-wedding.com
-      // DTSTAMP:${timestamp}
-      // DTSTART:${formatDate(event.startDate)}
-      // DTEND:${formatDate(event.endDate)}
-      // SUMMARY:${event.title}
-      // DESCRIPTION:${event.description}
-      // LOCATION:${event.location}
-      // END:VEVENT
-      // END:VCALENDAR`;
-
       const icsUrl = `${window.location.origin}/svadba-daria-nikita.ics`;
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = icsUrl;
-      document.body.appendChild(iframe);
-
-      // Remove iframe after 5 seconds
+      window.location.href = icsUrl;
       setTimeout(() => {
-        document.body.removeChild(iframe);
-      }, 5000);
+        window.location.href = `webcal://${icsUrl.replace(/^https?:\/\//, "")}`;
+      }, 1000);
+
+      // const iframe = document.createElement("iframe");
+      // iframe.style.display = "none";
+      // iframe.src = icsUrl;
+      // document.body.appendChild(iframe);
+
+      // // Remove iframe after 5 seconds
+      // setTimeout(() => {
+      //   document.body.removeChild(iframe);
+      // }, 5000);
     }
   };
 

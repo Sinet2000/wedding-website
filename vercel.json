@@ -5,10 +5,20 @@
   "headers": [
     {
       "source": "/svadba-daria-nikita.ics",
-      "headers": [{ "key": "Content-Type", "value": "text/calendar" }]
+      "headers": [
+        { "key": "Content-Type", "value": "text/calendar" },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=svadba-daria-nikita.ics"
+        }
+      ]
     }
   ],
   "routes": [
+    {
+      "src": "/svadba-daria-nikita.ics",
+      "dest": "/svadba-daria-nikita.ics"
+    },
     {
       "src": "/assets/(.*)",
       "headers": {
