@@ -195,7 +195,7 @@ export const Calendar = () => {
   const daysInMay = Array.from({ length: 31 }, (_, i) => i + 1);
   const firstDayOffset = 3; // May 1st, 2025 is Thursday (offset 3)
 
-  const handleAddToCalendar = (platform: "android" | "ios") => {
+  const handleAddToCalendar = () => {
     const event = {
       title: "💍 Свадьба: Дарья & Никита 💕",
       description: "Будем рады разделить этот особенный день с вами! 🎊✨",
@@ -204,31 +204,17 @@ export const Calendar = () => {
       location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006, Latvia",
     };
 
-    if (platform == "android") {
-      // Google Calendar Link
-      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-        event.title
-      )}&details=${encodeURIComponent(
-        event.description
-      )}&location=${encodeURIComponent(
-        event.location
-      )}&dates=${event.startDate.replace(/[-:]/g, "")}/${event.endDate.replace(
-        /[-:]/g,
-        ""
-      )}`;
-      window.open(googleCalendarUrl, "_blank");
-    } else {
-      const icsUrl = `${window.location.origin}/svadba-daria-nikita.ics`;
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = icsUrl;
-      document.body.appendChild(iframe);
-
-      // Remove iframe after 5 seconds
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-      }, 5000);
-    }
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+      event.title
+    )}&details=${encodeURIComponent(
+      event.description
+    )}&location=${encodeURIComponent(
+      event.location
+    )}&dates=${event.startDate.replace(/[-:]/g, "")}/${event.endDate.replace(
+      /[-:]/g,
+      ""
+    )}`;
+    window.open(googleCalendarUrl, "_blank");
   };
 
   const containerVariants = {
@@ -308,16 +294,9 @@ export const Calendar = () => {
         </DateWrapper>
 
         <ButtonContainer>
-          <CalendarButton onClick={() => handleAddToCalendar("android")}>
+          <CalendarButton onClick={() => handleAddToCalendar()}>
             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.6,9.48l1.84-3.18c0.16-0.31,0.04-0.69-0.26-0.85c-0.29-0.15-0.65-0.06-0.83,0.22l-1.88,3.24 c-2.86-1.21-6.08-1.21-8.94,0L5.65,5.67c-0.19-0.29-0.58-0.38-0.87-0.2C4.5,5.65,4.41,6.01,4.56,6.3L6.4,9.48 C3.3,11.25,1.28,14.44,1,18h22C22.72,14.44,20.7,11.25,17.6,9.48z M7,15.25c-0.69,0-1.25-0.56-1.25-1.25 c0-0.69,0.56-1.25,1.25-1.25S8.25,13.31,8.25,14C8.25,14.69,7.69,15.25,7,15.25z M17,15.25c-0.69,0-1.25-0.56-1.25-1.25 c0-0.69,0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25C18.25,14.69,17.69,15.25,17,15.25z" />
-            </svg>
-            Добавить в календарь
-          </CalendarButton>
-
-          <CalendarButton onClick={() => handleAddToCalendar("ios")}>
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z" />
             </svg>
             Добавить в календарь
           </CalendarButton>
