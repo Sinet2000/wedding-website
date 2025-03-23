@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+  VERSION:2.0
+  PRODID:-//Свадьба Дарьи и Никиты//EN
+  CALSCALE:GREGORIAN
+  BEGIN:VEVENT
+  UID:20250323T101457Z@daria-nikita-wedding.com
+  DTSTAMP:20250323T101457Z
+  DTSTART:20250524T103000Z
+  DTEND:20250524T123000Z
+  SUMMARY:Свадьба: Дарья & Никита
+  DESCRIPTION:Приглашаем вас на нашу свадьбу! 💍✨ Будем рады видеть вас в этот особенный день.
+  LOCATION:Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006
+  STATUS:CONFIRMED
+  SEQUENCE:0
+  TRANSP:OPAQUE
+  END:VEVENT
+  END:VCALENDAR

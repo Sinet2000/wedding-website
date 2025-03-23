@@ -218,45 +218,51 @@ export const Calendar = () => {
       )}`;
       window.open(googleCalendarUrl, "_blank");
     } else {
-      const event = {
-        title: "Свадьба: Дарья & Никита",
-        description:
-          "Приглашаем вас на нашу свадьбу! 💍✨ Будем рады видеть вас в этот особенный день.",
-        location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006",
-        startDate: new Date("2025-05-24T10:30:00Z"), // UTC время
-        endDate: new Date("2025-05-24T12:30:00Z"), // UTC время
-      };
+      // const event = {
+      //   title: "Свадьба: Дарья & Никита",
+      //   description:
+      //     "Приглашаем вас на нашу свадьбу! 💍✨ Будем рады видеть вас в этот особенный день.",
+      //   location: "Zemgaļu iela 1, Vidzemes priekšpilsēta, Rīga, LV-1006",
+      //   startDate: new Date("2025-05-24T10:30:00Z"), // UTC время
+      //   endDate: new Date("2025-05-24T12:30:00Z"), // UTC время
+      // };
 
-      const formatDate = (date: Date) => {
-        return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-      };
+      // const formatDate = (date: Date) => {
+      //   return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      // };
 
-      // Создание корректного .ics файла для iOS
-      const timestamp = formatDate(new Date()); // Текущая временная метка
-      const icsContent = `
-      BEGIN:VCALENDAR
-      VERSION:2.0
-      PRODID:-//Свадьба Дарьи и Никиты//EN
-      BEGIN:VEVENT
-      UID:${timestamp}@daria-nikita-wedding.com
-      DTSTAMP:${timestamp}
-      DTSTART:${formatDate(event.startDate)}
-      DTEND:${formatDate(event.endDate)}
-      SUMMARY:${event.title}
-      DESCRIPTION:${event.description}
-      LOCATION:${event.location}
-      END:VEVENT
-      END:VCALENDAR`;
+      // // Создание корректного .ics файла для iOS
+      // const timestamp = formatDate(new Date()); // Текущая временная метка
+      // const icsContent = `
+      // BEGIN:VCALENDAR
+      // VERSION:2.0
+      // PRODID:-//Свадьба Дарьи и Никиты//EN
+      // BEGIN:VEVENT
+      // UID:${timestamp}@daria-nikita-wedding.com
+      // DTSTAMP:${timestamp}
+      // DTSTART:${formatDate(event.startDate)}
+      // DTEND:${formatDate(event.endDate)}
+      // SUMMARY:${event.title}
+      // DESCRIPTION:${event.description}
+      // LOCATION:${event.location}
+      // END:VEVENT
+      // END:VCALENDAR`;
 
-      const blob = new Blob([icsContent], { type: "text/calendar" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "event.ics";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const icsUrl = `${window.location.origin}/svadba-daria-nikita.ics`;
+
+      // Check if it's Safari or iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(
+        navigator.userAgent
+      );
+
+      if (isIOS || isSafari) {
+        // Force opening in Calendar app
+        window.location.href = `webcal://${icsUrl.replace(/^https?:\/\//, "")}`;
+      } else {
+        // Normal download
+        window.open(icsUrl, "_blank");
+      }
     }
   };
 
